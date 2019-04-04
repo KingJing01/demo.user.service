@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 /app/sv/logs -->
+    <property name="LOG_HOME" value="/xinya/data/logs/xsungroup.customerservice.service"/>
+    <property name="LOG_NAME" value="app.service"/>
+    <conversionRule conversionWord="clr"
+                    converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+
+
+    <!-- 控制台输出 -->
+    <!--<appender name="STDOUT" class="com.haoyunhu.tools.logback.appender.LogisticConsoleAppender">
+        <filter class="com.haoyunhu.tools.logback.filter.LogisticThresholdFilter">
+            <levels>${runtime.logback.consoleLevels}</levels>
+        </filter>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 &ndash;&gt;
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n</pattern>
+        </layout>
+        &lt;!&ndash;<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 &ndash;&gt;
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n</pattern>
+        </encoder>&ndash;&gt;
+    </appender>-->
+    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 对日志进行格式化 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 文件日志 -->
+    <appender name="FILE-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<filter class="com.haoyunhu.tools.logback.filter.LogisticThresholdFilter">
+            <levels>${runtime.logback.fileLevels}</levels>
+        </filter>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <FileNamePattern>${LOG_HOME}/${LOG_NAME}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>90</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <ImmediateFlush>false</ImmediateFlush>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 请求LOG系统 -->
+    <!--<appender name="KIBANA-APPENDER" class="com.haoyunhu.tools.logback.appender.LogisticKibanaAppender">
+    </appender>-->
+
+    <!-- 异步输出 -->
+    <appender name="FILE-ASYNC-APPLICATION" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志-->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256-->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个-->
+        <appender-ref ref="FILE-APPENDER"/>
+    </appender>
+
+    <!-- 异步输出 -->
+    <!--<appender name="KIBANA-ASYNC-APPLICATION" class="ch.qos.logback.classic.AsyncAppender">
+        &lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志&ndash;&gt;
+        <discardingThreshold>0</discardingThreshold>
+        &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256&ndash;&gt;
+        <queueSize>8096</queueSize>
+        &lt;!&ndash; 添加附加的appender,最多只能添加一个&ndash;&gt;
+        <appender-ref ref="KIBANA-APPENDER"/>
+    </appender>-->
+
+    <!--logger name="com.xsungroup" level="DEBUG" additivity="false">
+&lt;!&ndash;
+        <appender-ref ref="KIBANA-ASYNC-APPLICATION"/>
+&ndash;&gt;
+        <appender-ref ref="FILE-ASYNC-APPLICATION"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>-->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE-ASYNC-APPLICATION" />
+    </root>
+
+</configuration>
