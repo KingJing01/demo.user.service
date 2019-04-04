@@ -3,6 +3,7 @@ package com.xsungroup.domain.model.base;
 import com.xinya.tools.utils.DateUtils;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,19 +12,25 @@ import java.util.Date;
  * 
  */
 @Data
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ValueObject<T> implements Serializable {
+
+  @Id
+  private String pk;
 
   private Integer dr;
 
   private String ts;
 
+  @Column(name = "create_user")
   private String createUser;
-
-  private String createTime;
-
+  @Column(name = "create_time")
+  private Date createTime;
+  @Column(name = "modify_user")
   private String modifyUser;
-
-  private String modifyTime;
+  @Column(name = "modify_time")
+  private Date modifyTime;
   /**
    * Value objects compare by the values of their attributes, they don't have an identity.
    *
@@ -39,9 +46,9 @@ public abstract class ValueObject<T> implements Serializable {
   public ValueObject(String user){
     Date date = new Date();
     this.setModifyUser(user);
-    this.setModifyTime(DateUtils.getDateFormate(date,DateUtils.DEFAULT_DATE_FORMAT));
+    this.setModifyTime(date);
     this.setCreateUser(user);
-    this.setCreateTime(DateUtils.getDateFormate(date,DateUtils.DEFAULT_DATE_FORMAT));
+    this.setCreateTime(date);
     this.setDr(0);
     this.setTs(DateUtils.get4yMdHmsS(date));
   }

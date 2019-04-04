@@ -15,9 +15,9 @@ public class ModelUtils {
 
     public static void newModel(Model baseModel, String userId, Date date){
         baseModel.setModifyUser(userId);
-        baseModel.setModifyTime(DateUtils.getDateFormate(date,DateUtils.DEFAULT_DATE_FORMAT));
+        baseModel.setModifyTime(date);
         baseModel.setCreateUser(userId);
-        baseModel.setCreateTime(DateUtils.getDateFormate(date,DateUtils.DEFAULT_DATE_FORMAT));
+        baseModel.setCreateTime(date);
         baseModel.setDr(0);
         baseModel.setTs(DateUtils.get4yMdHmsS(date));
     }
@@ -30,7 +30,7 @@ public class ModelUtils {
 
     public static void modifyModel(Model baseModel, String userId, Date date){
         baseModel.setModifyUser(userId);
-        baseModel.setModifyTime(DateUtils.getDateFormate(date,DateUtils.DEFAULT_DATE_FORMAT));
+        baseModel.setModifyTime(date);
         baseModel.setTs(DateUtils.get4yMdHmsS(date));
     }
     public static void modifyModel(Iterable<? extends Model> baseModel,final String userId,final Date date){
