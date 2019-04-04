@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -22,7 +23,6 @@ import org.springframework.web.filter.CorsFilter;
  * @Description : 用户系统服务启动类
  * @Date : 2019/3/11
  */
-@EnableAutoConfiguration
 @ComponentScan
 @EnableFeignClients
 @SpringBootApplication
