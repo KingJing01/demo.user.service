@@ -7,4 +7,8 @@ package com.xsungroup.controller;
  */
 public interface Url {
 
+  String USER_MANAGER_ADDUSER = "addUserInfo";
+  String USER_MANAGER_MODIFYUSER = "modifyUserInfo";
+  String USER_MANAGER_DELETEUSER = "deleteUserInfo/{pks}";
+
 }

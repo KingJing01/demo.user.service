@@ -30,7 +30,7 @@ public class Role extends ValueObject {
     @Column(name = "pk_create_org")
     private Organization createOrg;
 
-    private List<Permission> permissions;
+//    private List<Permission> permissions;
 
     @Override
     public boolean sameValueAs(Object other) {

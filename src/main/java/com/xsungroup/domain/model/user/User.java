@@ -44,6 +44,9 @@ public class User extends Model<User> {
 
     private String password;
 
+    @Column(name="phone_num")
+    private String phoneNum;
+
     @Column(name="transport_type")
     private TransTypeEnum transportType;
 

@@ -1,9 +1,14 @@
 package com.xsungroup.service.impl;
 
 import com.xinya.tools.utils.StringUtils;
+import com.xsungroup.controller.dto.UserInfoDto;
 import com.xsungroup.domain.model.user.User;
 import com.xsungroup.repository.UserRepository;
 import com.xsungroup.service.UserService;
+import com.xsungroup.utils.UUIDUtils;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +50,7 @@ public class UserServiceImpl implements UserService {
 
     Map<String,Object> params = new HashMap<>();
     StringBuilder whereSql = new StringBuilder();
-    whereSql.append(" and user_name=:cpId ");
-    params.put("cpId","aa");
+    whereSql.append(" and 1=1 ");
 
     String countSql = new StringBuilder().append(countSelectSql).append(whereSql).toString();
     Query countQuery = this.entityManager.createQuery(countSql,Long.class);
@@ -69,6 +73,31 @@ public class UserServiceImpl implements UserService {
     }else{ //不分页
       return new PageImpl<>(userList);
     }
+  }
+
+  @Override
+  public void saveOrModifyUserInfo(UserInfoDto userInfoDto) {
+    User user = new User();
+    if (StringUtils.isNotBlank(userInfoDto.getPk())) {
+
+    } else {
+      user.setPk(UUIDUtils.getPk());
+    }
+    user.setDisplayName(userInfoDto.getDisplayName());
+    user.setUserName(userInfoDto.getUserName());
+    // todo 密码需要处理
+    user.setPassword(userInfoDto.getPassword());
+    user.setPhoneNum(userInfoDto.getPhoneNum());
+    userRepository.save(user);
+  }
+
+  @Override
+  public void removeUser(String pks) {
+    String[] split = StringUtils.split(pks, ",");
+    List<String> pkStrList = Arrays.asList(split);
+    String currentUserPk = "";
+    String ts = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss:SSS").format(new Date());
+    userRepository.deleteBatch(pkStrList,currentUserPk,new Date(),ts);
   }
 
 
