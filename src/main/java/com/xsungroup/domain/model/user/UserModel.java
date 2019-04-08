@@ -1,5 +1,6 @@
 package com.xsungroup.domain.model.user;
 
+import com.xsungroup.domain.enums.TransModeEnum;
 import com.xsungroup.domain.enums.TransTypeEnum;
 import com.xsungroup.domain.model.base.Model;
 import lombok.Data;
@@ -33,7 +34,8 @@ public class UserModel extends Model<UserModel> {
     @Column(name="pk_top_org")
     private Organization topOrg;
 
-    @Column(name="pk_create_org")
+    @OneToOne(cascade = {CascadeType.REFRESH})
+    @JoinColumn(name ="pk_create_org")
     private Organization createOrg;
 
     @Column(name="last_login_time")
@@ -49,7 +51,7 @@ public class UserModel extends Model<UserModel> {
 
     @Column(name="transport_type")
     @Enumerated
-    private TransTypeEnum transportType;
+    private TransModeEnum transModeEnum;
 
 
     @Override

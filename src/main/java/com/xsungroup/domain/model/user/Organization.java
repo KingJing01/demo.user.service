@@ -41,6 +41,7 @@ public class Organization extends ValueObject {
 
     private String roadTransport;
 
+    @Column(name = "danger_transport")
     private String dangerTranspost;
 
     private String warrant;

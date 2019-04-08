@@ -1,10 +1,15 @@
 package com.xsungroup.controller;
 
+import com.xinya.tools.constant.OperatorConstant;
+import com.xinya.tools.rest.dto.ResponseBaseDto;
 import com.xsungroup.controller.dto.UserInfoDto;
 import com.xsungroup.controller.dto.UserInfoDto.UserInfoAdd;
 import com.xsungroup.controller.dto.UserInfoDto.UserInfoModify;
 import com.xsungroup.controller.dto.UserInfoListDto;
 import com.xsungroup.service.UserService;
+import com.xsungroup.utils.exception.BadRequestException;
+import com.xsungroup.utils.exception.UserErrorEnum;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -61,20 +66,19 @@ public class UserManageController {
    * @return void
    **/
   @PostMapping(Url.USER_MANAGER_ADDUSER)
-  public void addUserInfo(HttpServletRequest request, HttpServletResponse response,
+  public ResponseBaseDto addUserInfo(HttpServletRequest request, HttpServletResponse response,
       @RequestBody @Validated(UserInfoAdd.class) UserInfoDto userInfoDto, BindingResult result) {
 
     // 参数校验
     if (result.hasErrors()) {
       for (ObjectError error : result.getAllErrors()) {
-        System.out.println(error.getDefaultMessage());
+        return new ResponseBaseDto(error.getDefaultMessage(),OperatorConstant.RETURN_FAILURE);
       }
-      return;
     }
 
     // 业务逻辑处理
     userService.saveOrModifyUserInfo(userInfoDto);
-
+    return ResponseBaseDto.succeed();
   }
 
   /**
@@ -85,19 +89,19 @@ public class UserManageController {
    * @return void
    **/
   @PutMapping(Url.USER_MANAGER_MODIFYUSER)
-  public void modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
+  public ResponseBaseDto modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
       @RequestBody @Validated(UserInfoModify.class) UserInfoDto userInfoDto, BindingResult result) {
 
     // 参数校验
     if (result.hasErrors()) {
       for (ObjectError error : result.getAllErrors()) {
-        System.out.println(error.getDefaultMessage());
+        return new ResponseBaseDto(error.getDefaultMessage(),OperatorConstant.RETURN_FAILURE);
       }
-      return;
     }
 
     // 业务逻辑处理
     userService.saveOrModifyUserInfo(userInfoDto);
+    return ResponseBaseDto.succeed();
   }
 
   /**
@@ -108,10 +112,14 @@ public class UserManageController {
    * @return void
    **/
   @DeleteMapping(Url.USER_MANAGER_DELETEUSER)
-  public void modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
+  public ResponseBaseDto modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
       @PathVariable("pks") String pks) {
+
+    // 参数校验
+    Optional.ofNullable(pks).orElseThrow(()->new BadRequestException("CPE_1001","请检查主键！"));
 
     // 业务逻辑处理
     userService.removeUser(pks);
+    return ResponseBaseDto.succeed();
   }
 }

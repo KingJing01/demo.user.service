@@ -1,5 +1,6 @@
 package com.xsungroup.domain.model.user;
 
+import com.xsungroup.domain.model.base.Model;
 import com.xsungroup.domain.model.base.ValueObject;
 import lombok.Data;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="t_base_role")
-public class Role extends ValueObject {
+public class Role extends Model<Role> {
 
     @Column(name = "role_code")
     private String roleCode;
@@ -35,7 +36,7 @@ public class Role extends ValueObject {
     private List<Permission> permissions;
 
     @Override
-    public boolean sameValueAs(Object other) {
+    public boolean sameIdentityAs(Role other) {
         return false;
     }
 }

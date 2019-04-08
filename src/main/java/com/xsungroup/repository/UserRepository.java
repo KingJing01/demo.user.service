@@ -24,7 +24,7 @@ public interface UserRepository extends CrudRepository<UserModel,String> {
    **/
   @Modifying
   @Transactional
-  @Query("update User set dr = 0, modifyUser = (?2), modifyTime = (?3), ts = ?4 where pk in (?1)")
+  @Query("update UserModel set dr = 0, modifyUser = ?2, modifyTime = ?3, ts = ?4 where pk in (?1)")
   void deleteBatch(List<String> ids,String pk,Date date,String ts);
 
 }

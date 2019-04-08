@@ -4,9 +4,14 @@ import com.xinya.tools.utils.StringUtils;
 import com.xsungroup.controller.dto.UserInfoDto;
 import com.xsungroup.controller.dto.UserInfoListDto;
 import com.xsungroup.controller.vo.UserInfoListVo;
-import com.xsungroup.domain.model.user.User;
+import com.xsungroup.domain.enums.TransModeEnum;
+import com.xsungroup.domain.model.user.Organization;
+import com.xsungroup.domain.model.user.Role;
+import com.xsungroup.domain.model.user.UserModel;
+import com.xsungroup.repository.RoleRepository;
 import com.xsungroup.repository.UserRepository;
 import com.xsungroup.service.UserService;
+import com.xsungroup.utils.ModelUtils;
 import com.xsungroup.utils.UUIDUtils;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -14,12 +19,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.query.internal.QueryImpl;
-import org.hibernate.transform.Transformers;
+import org.apache.commons.lang.text.StrBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private RoleRepository roleRepository;
 
   /**
    * 实体管理对象
@@ -111,17 +118,41 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void saveOrModifyUserInfo(UserInfoDto userInfoDto) {
-    User user = new User();
+    UserModel user;
     if (StringUtils.isBlank(userInfoDto.getPk())) {
-      user.setPk(UUIDUtils.getPk());
+      user = new UserModel();
+      ModelUtils.newModel(user,"admin",new Date());
+    } else {
+      user = userRepository.findById(userInfoDto.getPk()).get();
+      ModelUtils.modifyModel(user,"admin",new Date());
     }
+
     user.setDisplayName(userInfoDto.getDisplayName());
     user.setUserName(userInfoDto.getUserName());
     // todo 密码需要处理
     user.setPassword(userInfoDto.getPassword());
     user.setPhoneNum(userInfoDto.getPhoneNum());
-
+    // 用户所属角色
+    Role role = new Role();
+    role.setPk(userInfoDto.getPkRole());
+    user.setRole(role);
+    // 顶级组织范围
+    Organization topOrgRange = new Organization();
+    topOrgRange.setPk(userInfoDto.getPkTopOrg());
+    user.setTopOrg(topOrgRange);
+    // 创建组织范围
+    Organization createOrgRange = new Organization();
+    createOrgRange.setPk(userInfoDto.getPkCreateOrg());
+    user.setCreateOrg(createOrgRange);
+    // 查看组织范围
+    Organization selectOrgRange = new Organization();
+    selectOrgRange.setPk(userInfoDto.getPkSelectOrg());
+    // 查看组织范围 todo
+    user.setTransModeEnum(TransModeEnum.COLDCHAIN);
+    Organization createOrg = new Organization();
+    createOrg.setPk(userInfoDto.getPkCreateOrg());
     userRepository.save(user);
+
   }
 
   @Override

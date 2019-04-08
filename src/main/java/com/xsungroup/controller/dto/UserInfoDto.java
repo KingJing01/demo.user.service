@@ -26,7 +26,6 @@ public class UserInfoDto {
   @NotBlank(groups = {UserInfoModify.class,UserInfoAdd.class},message = "密码不能为空")
   private String password;
   private String pkRole;
-  private String pkOrg;
 
   /**
    * 顶级组织范围
@@ -47,6 +46,15 @@ public class UserInfoDto {
    */
   private String transportType;
 
+  /**
+   * 暂定失效  0:否  1:是
+   */
+  private String dr;
+
+  /**
+   * 创建组织
+   */
+  private String createOrg;
 
   public interface UserInfoAdd{}
 
