@@ -12,7 +12,7 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://rm-8vb2a06qoj31utdhnlo.mysql.zhangbei.rds.aliyuncs.com:3306/tms"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://rm-8vb2a06qoj31utdhnlo.mysql.zhangbei.rds.aliyuncs.com:3306/xsungroup-user"
                         userId="root" password="Xsungroup333">
         </jdbcConnection>
         <javaTypeResolver>
@@ -34,7 +34,7 @@
             <property name="rootClass" value="com.xsungroup.repository.mapper.BaseMapper"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="ts_order_processing_record" domainObjectName="TsOrderProcessingRecordEntity" enableCountByExample="false"
+        <table tableName="t_base_user" domainObjectName="UserModel" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
     </context>

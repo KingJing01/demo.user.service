@@ -33,6 +33,8 @@ public class UserModel extends Model<UserModel> {
 
     private String password;
 
+    private String phoneNum;
+
     private TransTypeEnum transportType;
 
 

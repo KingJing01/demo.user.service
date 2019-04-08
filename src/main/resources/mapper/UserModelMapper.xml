@@ -9,14 +9,14 @@
     <result column="pk_org" jdbcType="VARCHAR" property="pkOrg" />
     <result column="pk_top_org" jdbcType="VARCHAR" property="pkTopOrg" />
     <result column="pk_create_org" jdbcType="VARCHAR" property="pkCreateOrg" />-->
-    <association property="role" column="pk_role" select="com.demo.mapper.ParentMessageMapper.findById"
+    <!--<association property="role" column="pk_role" select="selectByPrimaryKey"
                  javaType="com.xsungroup.domain.model.user.Role"/>
-    <association property="org" column="pk_org" select=""
+    <association property="org" column="pk_org" select="selectByPrimaryKey"
                  javaType="com.xsungroup.domain.model.user.Organization"/>
-    <association property="topOrg" column="pk_top_org" select=""
+    <association property="topOrg" column="pk_top_org" select="selectByPrimaryKey"
                  javaType="com.xsungroup.domain.model.user.Organization"/>
-    <association property="createOrg" column="pk_create_org" select=""
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
+    <association property="createOrg" column="pk_create_org" select="selectByPrimaryKey"
+                 javaType="com.xsungroup.domain.model.user.Organization"/>-->
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="is_valid" jdbcType="INTEGER" property="isValid" />
     <result column="password" jdbcType="VARCHAR" property="password" />
