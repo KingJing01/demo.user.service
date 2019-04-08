@@ -1,5 +1,6 @@
 package com.xsungroup.domain.model.user;
 
+import com.xsungroup.domain.enums.TransModeEnum;
 import com.xsungroup.domain.enums.TransTypeEnum;
 import com.xsungroup.domain.model.base.Model;
 import lombok.Data;
@@ -35,9 +36,13 @@ public class UserModel extends Model<UserModel> {
 
     private String phoneNum;
 
-    private TransTypeEnum transportType;
+    private TransModeEnum transportMode;
 
+    private String topOrgRange;
 
+    private String createOrgRange;
+
+    private String orgRange;
 
     @Override
     public boolean sameIdentityAs(UserModel other) {

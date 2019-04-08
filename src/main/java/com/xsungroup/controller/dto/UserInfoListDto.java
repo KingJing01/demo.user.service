@@ -13,4 +13,6 @@ public class UserInfoListDto {
   private String userName;
   private String displayName;
   private String pkRole;
+  private int pageNum = 1;
+  private int pageSize = 10;
 }

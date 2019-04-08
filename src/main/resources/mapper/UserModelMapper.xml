@@ -21,7 +21,7 @@
     <result column="is_valid" jdbcType="INTEGER" property="isValid" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
-    <result column="transport_type" jdbcType="VARCHAR" property="transportType" />
+    <result column="transport_type" jdbcType="VARCHAR" property="transportMode" />
     <result column="dr" jdbcType="INTEGER" property="dr" />
     <result column="ts" jdbcType="VARCHAR" property="ts" />
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
@@ -40,9 +40,31 @@
     from t_base_user
     where pk = #{pk,jdbcType=VARCHAR}
   </select>
+  <select id="findUserList" resultType="com.xsungroup.controller.vo.UserInfoListVo">
+    SELECT
+      user.pk, user.user_name, user.display_name, user.phone_num, role.role_name,org.org_name,
+      user.last_login_time,user.dr, company.org_name
+    FROM t_base_user user
+    LEFT JOIN t_base_role role ON user.pk_role = role.pk
+    LEFT JOIN t_base_org org ON user.pk_top_org = org.pk
+    LEFT JOIN t_base_org company ON user.pk_create_org = company.pk
+    WHERE user.dr = 0
+    <if test="userName != null and userName != ''">
+      and user_name = #{userName}
+    </if>
+    <if test="displayName != null and displayName != ''">
+      and display_name = #{displayName}
+    </if>
+    <if test="pkRole != null and pkRole != ''">
+      and pk_role = #{pkRole}
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_base_user
     where pk = #{pk,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteBatch">
+
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.user.UserModel">
     insert into t_base_user (pk, user_name, display_name, 

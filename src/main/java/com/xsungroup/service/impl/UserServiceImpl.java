@@ -1,24 +1,20 @@
 package com.xsungroup.service.impl;
 
+import com.xinya.tools.mybatis.page.Page;
+import com.xinya.tools.mybatis.page.Pageable;
 import com.xinya.tools.utils.StringUtils;
 import com.xsungroup.controller.dto.UserInfoDto;
 import com.xsungroup.controller.dto.UserInfoListDto;
 import com.xsungroup.controller.vo.UserInfoListVo;
-import com.xsungroup.domain.model.UserModel;
-import com.xsungroup.domain.model.user.Organization;
 import com.xsungroup.domain.model.user.Role;
-import com.xsungroup.repository.RoleRepository;
-import com.xsungroup.repository.UserRepository;
-import com.xsungroup.repository.mapper.UserModelMapper;
+import com.xsungroup.domain.model.user.UserModel;
+import com.xsungroup.repository.mapper.UserMapper;
 import com.xsungroup.service.UserService;
 import com.xsungroup.utils.ModelUtils;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,77 +27,13 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   @Autowired
-  private UserModelMapper userModelMapper;
+  private UserMapper userMapper;
 
-
-//  @Override
-//  public Page<UserInfoListVo> findUserList(PageRequest pageRequest,UserInfoListDto userInfoListDto) {
-//    StringBuilder countSelectSql = new StringBuilder();
-//    countSelectSql.append("select count(*) from t_base_user user where 1=1 ");
-//
-//    StringBuilder selectSql = new StringBuilder();
-//    selectSql.append(" SELECT ");
-//    selectSql.append("    user.pk, user.user_name as userName, user.display_name as displayName, ");
-//    selectSql.append("    user.phone_num as phoneNum, role.role_name as roleName, ");
-//    selectSql.append("    org.org_name as orgName, user.last_login_time as lastLoginTime, ");
-//    selectSql.append("    user.dr, company.org_name as companyName ");
-//    selectSql.append(" FROM t_base_user user ");
-//    selectSql.append(" LEFT JOIN t_base_role role ON user.pk_role = role.pk");
-//    selectSql.append(" LEFT JOIN t_base_org org ON user.pk_top_org = org.pk");
-//    selectSql.append(" LEFT JOIN t_base_org company ON user.pk_create_org = company.pk");
-//    selectSql.append(" WHERE 1=1 ");
-//
-//    // 拼接参数
-//    Map<String,Object> params = new HashMap<>();
-//    StringBuilder whereSql = new StringBuilder();
-//    String userName = userInfoListDto.getUserName();
-//    if(StringUtils.isNotBlank(userName)){
-//      whereSql.append(" and user_name=:userName ");
-//      params.put("userName",userName);
-//    }
-//
-////    String displayName = userInfoListDto.getDisplayName();
-////    if(StringUtils.isNotBlank(displayName)){
-////      whereSql.append(" and display_name='aaaa' ");
-////      params.put("displayName","aaaa");
-////    }
-//
-//    String pkRole = userInfoListDto.getPkRole();
-//    if(StringUtils.isNotBlank(pkRole)){
-//      whereSql.append(" and pk_role=:pkRole ");
-//      params.put("pkRole",pkRole);
-//    }
-//
-//    String countSql = new StringBuilder().append(countSelectSql).append(whereSql).toString();
-//    Query countQuery = this.entityManager.createNativeQuery(countSql,UserInfoListVo.class);
-//    for(Map.Entry<String,Object> entry:params.entrySet()){
-//      countQuery.setParameter(entry.getKey(),entry.getValue());
-//    }
-////    BigInteger totalCount = (BigInteger)countQuery.getSingleResult();
-//
-//    String querySql = new StringBuilder().append(selectSql).append(whereSql).toString();
-//    Query query = this.entityManager.createNativeQuery(querySql,UserInfoListVo.class);
-//
-//    for(Map.Entry<String,Object> entry:params.entrySet()){
-//      countQuery.setParameter(entry.getKey(),entry.getValue());
-//    }
-//
-//    query.setFirstResult((pageRequest.getPageNumber()-1)*pageRequest.getPageSize());
-//    query.setMaxResults(pageRequest.getPageSize());
-//
-//    List<UserInfoListVo> userList = query.getResultList();
-//    if(pageRequest != null) { //分页
-//      Page<UserInfoListVo> pageUser = new PageImpl<>(userList, pageRequest, 100L);
-//      return pageUser;
-//    }else{ //不分页
-//      return new PageImpl<>(userList);
-//    }
-//  }
 
   @Override
-  public Page<UserInfoListVo> findUserList(PageRequest pageRequest,
-      UserInfoListDto userInfoListDto) {
-    return null;
+  public Page<UserInfoListVo> findUserList(UserInfoListDto userInfoListDto) {
+    return userMapper.findUserList(new Pageable(userInfoListDto.getPageNum()-1,
+        userInfoListDto.getPageSize()),userInfoListDto);
   }
 
   @Override
@@ -113,34 +45,46 @@ public class UserServiceImpl implements UserService {
     user.setPassword(userInfoDto.getPassword());
     user.setPhoneNum(userInfoDto.getPhoneNum());
     // 用户所属角色
-    user.setPkRole(userInfoDto.getPkRole());
+    Role role = new Role();
+    role.setPk(userInfoDto.getPkRole());
+    user.setRole(role);
     // 顶级组织范围
     user.setTopOrgRange(userInfoDto.getTopOrgRange());
     // 创建组织范围
     user.setCreateOrgRange(userInfoDto.getCreateOrgRange());
     // 查看组织范围
     user.setOrgRange(userInfoDto.getOrgRange());
-    user.setTransportModel(userInfoDto.getTransportType());
+//    user.setTransportMode(TransModeEnum.valueOf());
 
     if (StringUtils.isBlank(userInfoDto.getPk())) {
       ModelUtils.newModel(user,"admin",new Date());
-      userModelMapper.insertSelective(user);
+      userMapper.insertSelective(user);
     } else {
       ModelUtils.modifyModel(user,"admin",new Date());
       user.setPk(userInfoDto.getPk());
-      userModelMapper.updateByPrimaryKey(user);
+      userMapper.updateByPrimaryKeySelective(user);
     }
-
-
   }
 
   @Override
   public void removeUser(String pks) {
-    String[] split = StringUtils.split(pks, ",");
-    List<String> pkStrList = Arrays.asList(split);
+    List<String> pkStrList = Arrays.asList(StringUtils.split(pks, ","));
     String currentUserPk = "";
-    String ts = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss:SSS").format(new Date());
-//    userModelMapper.deleteBatch(pkStrList,currentUserPk,new Date(),ts);
+    userMapper.deleteBatch(pkStrList,currentUserPk);
   }
+
+  @Override
+  public void updateSelect(String userPk,String newPwd) {
+    UserModel userModel = userMapper.selectByPrimaryKey(userPk);
+    userModel.setPassword(newPwd);
+    userMapper.updateByPrimaryKeySelective(userModel);
+  }
+
+  @Override
+  public UserModel findByPk(String userPk) {
+    return userMapper.selectByPrimaryKey(userPk);
+  }
+
+
 
 }
