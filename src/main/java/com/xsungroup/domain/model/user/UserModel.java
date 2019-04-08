@@ -16,7 +16,7 @@ import java.util.Optional;
 @Data
 @Entity
 @Table(name="t_base_user")
-public class User extends Model<User> {
+public class UserModel extends Model<UserModel> {
 
     @Column(name="user_name")
     private String userName;
@@ -45,11 +45,12 @@ public class User extends Model<User> {
     private String password;
 
     @Column(name="transport_type")
+    @Enumerated
     private TransTypeEnum transportType;
 
 
     @Override
-    public boolean sameIdentityAs(User other) {
+    public boolean sameIdentityAs(UserModel other) {
         return Optional.ofNullable(other).isPresent();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class Role extends ValueObject {
     @Column(name = "pk_create_org")
     private Organization createOrg;
 
+    @Transient
     private List<Permission> permissions;
 
     @Override

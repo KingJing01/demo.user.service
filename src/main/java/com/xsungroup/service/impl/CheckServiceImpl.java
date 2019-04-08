@@ -20,7 +20,6 @@ import java.util.Map;
  * @Description : 验证业务编排
  * @Date : 2019/4/6
  */
-@Service
 public class CheckServiceImpl implements CheckService {
 
     @Autowired

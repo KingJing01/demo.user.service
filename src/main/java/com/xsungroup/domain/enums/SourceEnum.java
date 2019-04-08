@@ -9,7 +9,7 @@ import com.xinya.tools.mybatis.handler.BaseEnum;
  */
 public enum SourceEnum implements BaseEnum {
 
-    IDLE(0,"注册"), BUSY(1,"创建");
+    REGISTER(0,"注册"), CREATE(1,"创建");
 
     private int code;
     private String name;

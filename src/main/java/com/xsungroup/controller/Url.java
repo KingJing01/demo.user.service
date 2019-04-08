@@ -7,4 +7,5 @@ package com.xsungroup.controller;
  */
 public interface Url {
 
+   String VERIFICATION = "verification/{phone}";
 }

@@ -14,6 +14,7 @@ public class ModelUtils {
 
 
     public static void newModel(Model baseModel, String userId, Date date){
+        baseModel.setPk(UUID.randomUUID().toString());
         baseModel.setModifyUser(userId);
         baseModel.setModifyTime(date);
         baseModel.setCreateUser(userId);

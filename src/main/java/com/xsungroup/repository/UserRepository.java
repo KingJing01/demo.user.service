@@ -1,6 +1,6 @@
 package com.xsungroup.repository;
 
-import com.xsungroup.domain.model.user.User;
+import com.xsungroup.domain.model.user.UserModel;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * @Description :
  * @Date : 2019/4/4
  */
-public interface UserRepository extends CrudRepository<User,String> {
+public interface UserRepository extends CrudRepository<UserModel,String> {
 }
