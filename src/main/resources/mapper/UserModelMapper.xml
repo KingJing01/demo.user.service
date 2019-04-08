@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsungroup.repository.mapper.UserModelMapper">
+  <resultMap id="BaseResultMap" type="com.xsungroup.domain.model.UserModel">
+    <id column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="pk_role" jdbcType="VARCHAR" property="pkRole" />
+    <result column="pk_org" jdbcType="VARCHAR" property="pkOrg" />
+    <result column="pk_top_org" jdbcType="VARCHAR" property="pkTopOrg" />
+    <result column="pk_create_org" jdbcType="VARCHAR" property="pkCreateOrg" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="top_org_range" jdbcType="VARCHAR" property="topOrgRange" />
+    <result column="create_org_range" jdbcType="VARCHAR" property="createOrgRange" />
+    <result column="org_range" jdbcType="VARCHAR" property="orgRange" />
+    <result column="transport_model" jdbcType="INTEGER" property="transportModel" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk, user_name, display_name, pk_role, pk_org, pk_top_org, pk_create_org, last_login_time, 
+    is_valid, password, phone_num, top_org_range, create_org_range, org_range, transport_model, 
+    dr, create_user, create_time, modify_user, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_user
+    where pk = #{pk,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_base_user
+    where pk = #{pk,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xsungroup.domain.model.UserModel">
+    insert into t_base_user (pk, user_name, display_name, 
+      pk_role, pk_org, pk_top_org, 
+      pk_create_org, last_login_time, is_valid, 
+      password, phone_num, top_org_range, 
+      create_org_range, org_range, transport_model, 
+      dr, create_user, create_time, 
+      modify_user, modify_time)
+    values (#{pk,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
+      #{pkRole,jdbcType=VARCHAR}, #{pkOrg,jdbcType=VARCHAR}, #{pkTopOrg,jdbcType=VARCHAR}, 
+      #{pkCreateOrg,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{topOrgRange,jdbcType=VARCHAR}, 
+      #{createOrgRange,jdbcType=VARCHAR}, #{orgRange,jdbcType=VARCHAR}, #{transportModel,jdbcType=INTEGER}, 
+      #{dr,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsungroup.domain.model.UserModel">
+    insert into t_base_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="displayName != null">
+        display_name,
+      </if>
+      <if test="pkRole != null">
+        pk_role,
+      </if>
+      <if test="pkOrg != null">
+        pk_org,
+      </if>
+      <if test="pkTopOrg != null">
+        pk_top_org,
+      </if>
+      <if test="pkCreateOrg != null">
+        pk_create_org,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="topOrgRange != null">
+        top_org_range,
+      </if>
+      <if test="createOrgRange != null">
+        create_org_range,
+      </if>
+      <if test="orgRange != null">
+        org_range,
+      </if>
+      <if test="transportModel != null">
+        transport_model,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="pkRole != null">
+        #{pkRole,jdbcType=VARCHAR},
+      </if>
+      <if test="pkOrg != null">
+        #{pkOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="pkTopOrg != null">
+        #{pkTopOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="pkCreateOrg != null">
+        #{pkCreateOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="topOrgRange != null">
+        #{topOrgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="createOrgRange != null">
+        #{createOrgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="orgRange != null">
+        #{orgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="transportModel != null">
+        #{transportModel,jdbcType=INTEGER},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.domain.model.UserModel">
+    update t_base_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="pkRole != null">
+        pk_role = #{pkRole,jdbcType=VARCHAR},
+      </if>
+      <if test="pkOrg != null">
+        pk_org = #{pkOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="pkTopOrg != null">
+        pk_top_org = #{pkTopOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="pkCreateOrg != null">
+        pk_create_org = #{pkCreateOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="topOrgRange != null">
+        top_org_range = #{topOrgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="createOrgRange != null">
+        create_org_range = #{createOrgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="orgRange != null">
+        org_range = #{orgRange,jdbcType=VARCHAR},
+      </if>
+      <if test="transportModel != null">
+        transport_model = #{transportModel,jdbcType=INTEGER},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsungroup.domain.model.UserModel">
+    update t_base_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      pk_role = #{pkRole,jdbcType=VARCHAR},
+      pk_org = #{pkOrg,jdbcType=VARCHAR},
+      pk_top_org = #{pkTopOrg,jdbcType=VARCHAR},
+      pk_create_org = #{pkCreateOrg,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      top_org_range = #{topOrgRange,jdbcType=VARCHAR},
+      create_org_range = #{createOrgRange,jdbcType=VARCHAR},
+      org_range = #{orgRange,jdbcType=VARCHAR},
+      transport_model = #{transportModel,jdbcType=INTEGER},
+      dr = #{dr,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+</mapper>
