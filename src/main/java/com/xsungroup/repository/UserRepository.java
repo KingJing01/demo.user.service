@@ -1,21 +1,19 @@
 package com.xsungroup.repository;
 
-import com.xsungroup.domain.model.user.User;
+import com.xsungroup.domain.model.user.UserModel;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author : Lilei
  * @Description :
  * @Date : 2019/4/4
  */
-public interface UserRepository extends CrudRepository<User,String> {
+public interface UserRepository extends CrudRepository<UserModel,String> {
 
   /**
    * @Author Chenman

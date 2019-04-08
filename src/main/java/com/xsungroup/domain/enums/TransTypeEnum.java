@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @Date : 2019/3/22
  */
 public enum TransTypeEnum implements BaseEnum {
-        COLDCHAIN(1,"冷链运输"),GENERAL(2,"普货运输"),
+       ZORE(0,""),COLDCHAIN(1,"冷链运输"),GENERAL(2,"普货运输"),
     DANGEROUS(3,"危险品运输"),CONTAINER(4,"集装箱运输");
 
     private int code;
