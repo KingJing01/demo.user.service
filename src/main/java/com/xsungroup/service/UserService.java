@@ -1,8 +1,11 @@
 package com.xsungroup.service;
 
 import com.xsungroup.controller.dto.UserInfoDto;
+import com.xsungroup.controller.dto.UserInfoListDto;
+import com.xsungroup.controller.vo.UserInfoListVo;
 import com.xsungroup.domain.model.user.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 /**
@@ -13,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserService {
 
-  Page<User> findUserList(Pageable pageable);
+  Page<UserInfoListVo> findUserList(PageRequest pageRequest,UserInfoListDto userInfoListDto);
 
   /**
    * @Author Chenman

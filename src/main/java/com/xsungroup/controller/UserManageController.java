@@ -3,12 +3,14 @@ package com.xsungroup.controller;
 import com.xsungroup.controller.dto.UserInfoDto;
 import com.xsungroup.controller.dto.UserInfoDto.UserInfoAdd;
 import com.xsungroup.controller.dto.UserInfoDto.UserInfoModify;
+import com.xsungroup.controller.dto.UserInfoListDto;
 import com.xsungroup.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
@@ -38,56 +40,17 @@ public class UserManageController {
 
   /**
    * @Author Chenman
-   * @Description  //TODO
+   * @Description
    * @Date 11:03 2019/4/6
    * @Param [request, response]
    * @return org.springframework.data.domain.Page
    **/
   @GetMapping
   @RequestMapping(value = "findUserList")
-  @Deprecated
-  public Page findUserList (HttpServletRequest request, HttpServletResponse response) {
-    return userService.findUserList(new Pageable(){
-      @Override
-      public int getPageNumber() {
-        return 1;
-      }
-
-      @Override
-      public int getPageSize() {
-        return 2;
-      }
-
-      @Override
-      public long getOffset() {
-        return 0;
-      }
-
-      @Override
-      public Sort getSort() {
-        return null;
-      }
-
-      @Override
-      public Pageable next() {
-        return null;
-      }
-
-      @Override
-      public Pageable previousOrFirst() {
-        return null;
-      }
-
-      @Override
-      public Pageable first() {
-        return null;
-      }
-
-      @Override
-      public boolean hasPrevious() {
-        return false;
-      }
-    });
+  public Page findUserInfoList (HttpServletRequest request, HttpServletResponse response,
+      @RequestBody(required = false) UserInfoListDto userInfoListDto) {
+    PageRequest pageRequest = PageRequest.of(1, 10);
+    return userService.findUserList(pageRequest,userInfoListDto);
   }
 
   /**
@@ -114,6 +77,13 @@ public class UserManageController {
 
   }
 
+  /**
+   * @Author Chenman
+   * @Description  修改用户信息
+   * @Date 15:41 2019/4/6
+   * @Param [request, response, userInfoDto, result]
+   * @return void
+   **/
   @PutMapping(Url.USER_MANAGER_MODIFYUSER)
   public void modifyUserInfo(HttpServletRequest request, HttpServletResponse response,
       @RequestBody @Validated(UserInfoModify.class) UserInfoDto userInfoDto, BindingResult result) {

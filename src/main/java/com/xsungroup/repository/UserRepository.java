@@ -17,6 +17,13 @@ import org.springframework.stereotype.Repository;
  */
 public interface UserRepository extends CrudRepository<User,String> {
 
+  /**
+   * @Author Chenman
+   * @Description  删除用户
+   * @Date 15:46 2019/4/6
+   * @Param [ids, pk, date, ts]
+   * @return void
+   **/
   @Modifying
   @Transactional
   @Query("update User set dr = 0, modifyUser = (?2), modifyTime = (?3), ts = ?4 where pk in (?1)")
