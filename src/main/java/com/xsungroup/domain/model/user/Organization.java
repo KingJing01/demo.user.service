@@ -4,23 +4,15 @@ import com.xsungroup.domain.enums.SourceEnum;
 import com.xsungroup.domain.model.base.ValueObject;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /**
  * @author : Lilei
  * @Description :
  * @Date : 2019/4/4
  */
 @Data
-@Entity
-@Table(name="t_base_org")
 public class Organization extends ValueObject {
 
-    @Column(name = "org_name")
     private String orgName;
-    @Column(name = "org_code")
     private String orgCode;
 
     private String type;

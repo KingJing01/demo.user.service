@@ -1,6 +1,7 @@
 package com.xsungroup.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.xsungroup.domain.event.SendSmsEvent;
 import com.xsungroup.domain.model.basis.CheckCodeModel;
 import com.xsungroup.domain.model.basis.SmsRecordModel;
 import com.xsungroup.repository.CheckCodeRepository;
@@ -20,24 +21,24 @@ import java.util.Map;
  * @Description : 验证业务编排
  * @Date : 2019/4/6
  */
+@Service
 public class CheckServiceImpl implements CheckService {
 
     @Autowired
     private CheckCodeRepository checkCodeRepository;
 
-    @Resource(name = UserChannel.USER_OUTPUT)
-    private MessageChannel sendUserMessageChannel;
-
+    //@Resource(name = UserChannel.USER_OUTPUT)
+    //private MessageChannel sendUserMessageChannel;
+    @Autowired
+    private SendSmsEvent sendSmsEvent;
     @Override
     public void sendCheck(CheckCodeModel model) {
         model = checkCodeRepository.save(model);
         Map<String,String> param =new HashMap(1);
         param.put("code",model.getCode());
         SmsRecordModel sms = new SmsRecordModel("SMS_139238346",model.getPhoneNum(),JSON.toJSONString(param));
-        boolean bool = sendUserMessageChannel.send(MessageBuilder.withPayload(sms).build());
+        //boolean bool = sendUserMessageChannel.send(MessageBuilder.withPayload(sms).build());
         //不成功自动触发
-        if (!bool){
-
-        }
+        sendSmsEvent.sendSms(sms);
     }
 }
