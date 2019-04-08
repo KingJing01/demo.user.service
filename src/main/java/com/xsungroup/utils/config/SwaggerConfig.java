@@ -12,11 +12,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @program: weilai-cloud
- * @description: swagger2 配置文件
- * @author: ChenMan
- * @create: 2019-04-02 18:32
- */
+ * @Author Chenman
+ * @Description  swagger2 配置文件
+ * @Date 20:03 2019/4/8
+ * @Param
+ * @return
+ **/
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
