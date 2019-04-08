@@ -4,6 +4,7 @@ package com.xsungroup.utils;
 import com.ctrip.framework.apollo.Config;
 import com.ctrip.framework.apollo.ConfigService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +27,11 @@ public class PropertiesUtils {
 
     private static Config config = ConfigService.getAppConfig();
 
+    @Value("xsungroup.user.checkcode.digits:4")
+    private static int digits;
+    @Value("xsungroup.user.checkcode.deadline:3")
+    private static int deadlineNum;
+
     public static String getProperty(String key){
         return config.getProperty(CUSTOMER_SERVICE+key,"info");
     }
@@ -34,4 +40,11 @@ public class PropertiesUtils {
         return config.getIntProperty(CUSTOMER_SERVICE+key,0);
     }
 
+    public static int getDigits() {
+        return digits;
+    }
+
+    public static int getDeadlineNum() {
+        return deadlineNum;
+    }
 }
