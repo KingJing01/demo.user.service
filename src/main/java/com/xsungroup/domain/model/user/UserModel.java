@@ -36,6 +36,7 @@ public class UserModel extends Model<UserModel> {
     private TransTypeEnum transportType;
 
 
+
     @Override
     public boolean sameIdentityAs(UserModel other) {
         return Optional.ofNullable(other).isPresent();
