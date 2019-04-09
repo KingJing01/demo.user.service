@@ -24,15 +24,15 @@ public class OrgModel extends Model<OrgModel> {
 
     private Integer operation;
 
-    private OrgModel parentPk;
+    private String parentPk;
 
-    private DocumentBusiness businessCode;
+    private String businessCode;
 
-    private DocumentIdCard legalPersonIdCard;
+    private String legalPersonIdCard;
 
-    private DocumentRoadTransport roadTransport;
+    private String roadTransport;
 
-    private DocumentDangerTransport dangerTransport;
+    private String dangerTransport;
 
     private String warrant;
 
