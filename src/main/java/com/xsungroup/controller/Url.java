@@ -8,6 +8,17 @@ package com.xsungroup.controller;
 public interface Url {
 
    String VERIFICATION = "verification/{phone}";
+
+    String ADDCOMPANY = "addcompany";
+
+    String DELECOMPANY = "delecompany";
+
+    String EDITCOMPANY = "editcompany";
+
+    String SELECTCOMPANY = "selectcompany";
+
+    String DETAILCOMPANY = "detailcompany";
+
   String USER_MANAGER_ADDUSER = "addUserInfo";
   String USER_MANAGER_MODIFYUSER = "modifyUserInfo";
   String USER_MANAGER_DELETEUSER = "deleteUserInfo/{pks}";

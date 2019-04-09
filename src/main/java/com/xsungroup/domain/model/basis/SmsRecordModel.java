@@ -11,6 +11,7 @@ import java.util.Date;
  * @Description : 短信记录模型
  * @Date : 2019/4/6
  */
+@Data
 public class SmsRecordModel extends Model<SmsRecordModel> {
 
     private String type;
