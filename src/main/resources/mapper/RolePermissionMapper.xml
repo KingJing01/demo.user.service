@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsungroup.repository.mapper.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.xsungroup.domain.model.user.RolePermission">
+    <id column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="pk_role" jdbcType="VARCHAR" property="pkRole" />
+    <result column="pk_permission" jdbcType="VARCHAR" property="pkPermission" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="ts" jdbcType="VARCHAR" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk, pk_role, pk_permission, dr, create_user, create_time, modify_user, modify_time, 
+    ts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_role_permission
+    where pk = #{pk,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_role_permission
+    where pk = #{pk,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xsungroup.domain.model.user.RolePermission">
+    insert into t_role_permission (pk, pk_role, pk_permission, 
+      dr, create_user, create_time, 
+      modify_user, modify_time, ts
+      )
+    values (#{pk,jdbcType=VARCHAR}, #{pkRole,jdbcType=VARCHAR}, #{pkPermission,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsungroup.domain.model.user.RolePermission">
+    insert into t_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="pkRole != null">
+        pk_role,
+      </if>
+      <if test="pkPermission != null">
+        pk_permission,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="pkRole != null">
+        #{pkRole,jdbcType=VARCHAR},
+      </if>
+      <if test="pkPermission != null">
+        #{pkPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.domain.model.user.RolePermission">
+    update t_role_permission
+    <set>
+      <if test="pkRole != null">
+        pk_role = #{pkRole,jdbcType=VARCHAR},
+      </if>
+      <if test="pkPermission != null">
+        pk_permission = #{pkPermission,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsungroup.domain.model.user.RolePermission">
+    update t_role_permission
+    set pk_role = #{pkRole,jdbcType=VARCHAR},
+      pk_permission = #{pkPermission,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=VARCHAR}
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+</mapper>

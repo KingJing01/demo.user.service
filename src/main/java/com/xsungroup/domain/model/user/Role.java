@@ -3,28 +3,19 @@ package com.xsungroup.domain.model.user;
 import com.xsungroup.domain.model.base.ValueObject;
 import lombok.Data;
 
-import java.util.List;
 
-/**
- * @author : Lilei
- * @Description :
- * @Date : 2019/4/4
- */
 @Data
-public class Role extends ValueObject {
-
+public class Role extends ValueObject<Role> {
     private String roleCode;
 
     private String roleName;
 
-    private Organization org;
+    private String pkOrg;
 
-    private Organization createOrg;
-
-    private List<Permission> permissions;
+    private String pkCreateOrg;
 
     @Override
-    public boolean sameValueAs(Object other) {
+    public boolean sameValueAs(Role other) {
         return false;
     }
 }

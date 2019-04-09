@@ -3,13 +3,12 @@ package com.xsungroup.domain.model.user;
 import com.xsungroup.domain.model.base.ValueObject;
 import lombok.Data;
 
+
 /**
- * @author : Lilei
- * @Description : 权限值类型
- * @Date : 2019/4/4
+ * @author thinkpad
  */
 @Data
-public class Permission extends ValueObject {
+public class Permission extends ValueObject<Permission> {
 
     private String permissionName;
 
@@ -17,10 +16,10 @@ public class Permission extends ValueObject {
 
     private String permissionUrl;
 
-    private Permission parent;
+    private String permissionParent;
 
     @Override
-    public boolean sameValueAs(Object other) {
+    public boolean sameValueAs(Permission other) {
         return false;
     }
 }

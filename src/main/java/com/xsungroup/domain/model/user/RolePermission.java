@@ -1,25 +1,18 @@
 package com.xsungroup.domain.model.user;
 
-import com.xsungroup.domain.model.base.Model;
-import java.util.Optional;
-
+import com.xsungroup.domain.model.base.ValueObject;
 import lombok.Data;
 
-/**
- * @author : Chenman
- * @Description : 角色权限模型
- * @Date : 2019/4/4
- */
+
 @Data
+public class RolePermission extends ValueObject<Permission> {
 
-public class RolePermission extends Model<RolePermission> {
+    private String pkRole;
 
-    private Permission permission;
-
-    private Role role;
+    private String pkPermission;
 
     @Override
-    public boolean sameIdentityAs(RolePermission other) {
-        return Optional.ofNullable(other).isPresent();
+    public boolean sameValueAs(Permission other) {
+        return false;
     }
 }
