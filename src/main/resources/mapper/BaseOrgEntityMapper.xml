@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xsungroup.repository.mapper.BaseOrgEntityMapper">
-  <resultMap id="BaseResultMap" type="com.xsungroup.repository.entity.BaseOrgEntity">
+<mapper namespace="com.xsungroup.repository.mapper.BaseOrgMapper">
+  <resultMap id="BaseResultMap" type="com.xsungroup.domain.model.org.OrgModel">
     <id column="pk" jdbcType="VARCHAR" property="pk" />
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
     <result column="source" jdbcType="INTEGER" property="source" />
@@ -39,7 +39,7 @@
     delete from t_base_org
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+  <insert id="insert" parameterType="com.xsungroup.domain.model.org.OrgModel">
     insert into t_base_org (pk, org_name, source, 
       org_code, org_type, legal_person, 
       accountant, operation, parent_pk, 
@@ -57,7 +57,7 @@
       #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+  <insert id="insertSelective" parameterType="com.xsungroup.domain.model.org.OrgModel">
     insert into t_base_org
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">
@@ -190,7 +190,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.domain.model.org.OrgModel">
     update t_base_org
     <set>
       <if test="orgName != null">
@@ -256,7 +256,7 @@
     </set>
     where pk = #{pk,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+  <update id="updateByPrimaryKey" parameterType="com.xsungroup.domain.model.org.OrgModel">
     update t_base_org
     set org_name = #{orgName,jdbcType=VARCHAR},
       source = #{source,jdbcType=INTEGER},

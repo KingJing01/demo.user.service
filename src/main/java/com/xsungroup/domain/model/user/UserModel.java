@@ -3,6 +3,7 @@ package com.xsungroup.domain.model.user;
 import com.xsungroup.domain.enums.TransModeEnum;
 import com.xsungroup.domain.enums.TransTypeEnum;
 import com.xsungroup.domain.model.base.Model;
+import com.xsungroup.domain.model.org.OrgModel;
 import lombok.Data;
 
 import java.util.Date;
@@ -22,11 +23,11 @@ public class UserModel extends Model<UserModel> {
 
     private Role role;
 
-    private Organization org;
+    private OrgModel org;
 
-    private Organization topOrg;
+    private OrgModel topOrg;
 
-    private Organization createOrg;
+    private OrgModel createOrg;
 
     private Date lastLoginTime;
 

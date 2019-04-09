@@ -6,7 +6,7 @@ import com.xinya.tools.res.PageResponse;
 import com.xinya.tools.res.ResultResponse;
 import com.xinya.tools.rest.dto.ResponseBaseDto;
 import com.xsungroup.controller.dto.BaseOrgDto;
-import com.xsungroup.repository.entity.BaseOrgEntity;
+import com.xsungroup.domain.model.org.OrgModel;
 import com.xsungroup.service.BaseOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,8 +48,8 @@ public class CompanyController {
 
     //查列表的接口
     @PostMapping(Url.SELECTCOMPANY)
-    public PageResponse<BaseOrgEntity> selectCompany(@RequestBody BaseOrgDto baseOrgDto){
-        Page<BaseOrgEntity> complaintDtos = null;
+    public PageResponse<OrgModel> selectCompany(@RequestBody BaseOrgDto baseOrgDto){
+        Page<OrgModel> complaintDtos = null;
         complaintDtos = baseOrgService.selectCompany(baseOrgDto);
         return PageResponse.succeed(complaintDtos.getContent(),complaintDtos.getTotal());
     }

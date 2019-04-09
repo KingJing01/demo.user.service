@@ -2,7 +2,7 @@ package com.xsungroup.service;
 
 import com.xinya.tools.mybatis.page.Page;
 import com.xsungroup.controller.dto.BaseOrgDto;
-import com.xsungroup.repository.entity.BaseOrgEntity;
+import com.xsungroup.domain.model.org.OrgModel;
 
 public interface BaseOrgService {
 
@@ -13,8 +13,8 @@ public interface BaseOrgService {
 
     void editCompany (BaseOrgDto baseOrgDto);
 
-    Page<BaseOrgEntity> selectCompany (BaseOrgDto baseOrgDto);
+    Page<OrgModel> selectCompany (BaseOrgDto baseOrgDto);
 
-    BaseOrgEntity complaintDetail (String pk);
+    OrgModel complaintDetail (String pk);
 
 }

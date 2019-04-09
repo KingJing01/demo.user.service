@@ -3,7 +3,7 @@ package com.xsungroup.service.impl;
 
 import com.xinya.tools.mybatis.page.Page;
 import com.xsungroup.controller.dto.BaseOrgDto;
-import com.xsungroup.repository.entity.BaseOrgEntity;
+import com.xsungroup.domain.model.org.OrgModel;
 import com.xsungroup.service.BaseOrgService;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +26,12 @@ public class BaseOrgServiceImpl implements BaseOrgService {
     }
 
     @Override
-    public Page<BaseOrgEntity> selectCompany(BaseOrgDto baseOrgDto) {
+    public Page<OrgModel> selectCompany(BaseOrgDto baseOrgDto) {
         return null;
     }
 
     @Override
-    public BaseOrgEntity complaintDetail(String pk) {
+    public OrgModel complaintDetail(String pk) {
         return null;
     }
 }
