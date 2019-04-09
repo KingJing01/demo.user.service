@@ -28,6 +28,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.user.LoginHistory">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_login_history (pk, user_name, login_ip, 
       login_time, dr, create_user, 
       create_time, modify_user, modify_time, 
@@ -38,6 +41,9 @@
       #{ts,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.user.LoginHistory">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_login_history
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

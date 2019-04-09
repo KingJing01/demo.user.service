@@ -29,6 +29,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.user.Role">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_base_role (pk, role_code, role_name, 
       pk_org, pk_create_org, dr, 
       create_user, create_time, modify_user, 
@@ -39,6 +42,9 @@
       #{modifyTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.user.Role">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_base_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

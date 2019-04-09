@@ -37,6 +37,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.document.DocumentRoadTransport">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_road_transport (pk, certificate_province, certificate_word, 
       certificate_code, certificate_text, business_name, 
       business_scope, business_address, vaild_time_start, 
@@ -53,6 +56,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.document.DocumentRoadTransport">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_road_transport
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

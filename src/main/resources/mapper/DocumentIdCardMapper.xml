@@ -30,6 +30,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.document.DocumentIdCard">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_id_card (pk, card_code, card_url, 
       licensing_organiz, valid_time_start, valid_time_end, 
       dr, create_user, create_time, 
@@ -42,6 +45,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.document.DocumentIdCard">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_id_card
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

@@ -35,6 +35,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.document.DocumentBusiness">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_business (pk, business_code, org_name, 
       registered_capital, capital_type, business_address, 
       vaild_time_start, valid_time_end, licensing_organiz, 
@@ -49,6 +52,9 @@
       #{ts,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.document.DocumentBusiness">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_document_business
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

@@ -31,6 +31,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.org.AuditOrg">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_audit_org (pk, pk_org, status, 
       audit_mode, audit_user, audit_time, 
       audit_memo, dr, create_user, 
@@ -43,6 +46,9 @@
       #{ts,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.org.AuditOrg">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_audit_org
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

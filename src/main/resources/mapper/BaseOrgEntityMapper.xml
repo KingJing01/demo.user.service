@@ -40,6 +40,9 @@
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.org.OrgModel">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_base_org (pk, org_name, source, 
       org_code, org_type, legal_person, 
       accountant, operation, parent_pk, 
@@ -58,6 +61,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.org.OrgModel">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
     insert into t_base_org
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">
