@@ -7,8 +7,8 @@ import com.xsungroup.domain.model.basis.CheckCodeModel;
  * @Description : 验证业务编排
  * @Date : 2019/4/6
  */
-public interface CheckService {
+public interface UserCheckService {
 
-    void sendCheck(CheckCodeModel model);
+    void sendCheck(String phone,String type);
 
 }

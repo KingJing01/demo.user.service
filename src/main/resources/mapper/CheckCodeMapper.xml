@@ -28,6 +28,11 @@
     delete from t_check_code
     where pk = #{pk,jdbcType=VARCHAR}
   </delete>
+  <update id="deleteByPhone">
+    update t_check_code
+    set dr = 1
+    where dr = 0 and phone_num = #{phone}
+  </update>
   <insert id="insert" parameterType="com.xsungroup.domain.model.basis.CheckCodeModel">
       <selectKey keyProperty="pk" resultType="string" order="BEFORE">
           select replace(uuid(), '-', '') pk

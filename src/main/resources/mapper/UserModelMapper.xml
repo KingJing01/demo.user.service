@@ -23,11 +23,11 @@
     <association property="role" column="pk_role" select="selectByPrimaryKey"
                  javaType="com.xsungroup.domain.model.user.Role"/>
     <association property="org" column="pk_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
+                 javaType="com.xsungroup.domain.model.org.OrgModel"/>
     <association property="topOrg" column="pk_top_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
+                 javaType="com.xsungroup.domain.model.org.OrgModel"/>
     <association property="createOrg" column="pk_create_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
+                 javaType="com.xsungroup.domain.model.org.OrgModel"/>
   </resultMap>
   <sql id="Base_Column_List">
     pk, user_name, display_name, pk_role, pk_org, pk_top_org, pk_create_org, last_login_time, 

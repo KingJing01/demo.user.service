@@ -2,9 +2,13 @@ package com.xsungroup.repository.mapper;
 
 
 import com.xsungroup.domain.model.basis.CheckCodeModel;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CheckCodeMapper {
     int deleteByPrimaryKey(String pk);
+
+    int deleteByPhone(String phone);
 
     int insert(CheckCodeModel record);
 

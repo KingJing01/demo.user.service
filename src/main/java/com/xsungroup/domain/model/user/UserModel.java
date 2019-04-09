@@ -1,7 +1,6 @@
 package com.xsungroup.domain.model.user;
 
 import com.xsungroup.domain.enums.TransModeEnum;
-import com.xsungroup.domain.enums.TransTypeEnum;
 import com.xsungroup.domain.model.base.Model;
 import com.xsungroup.domain.model.org.OrgModel;
 import lombok.Data;
