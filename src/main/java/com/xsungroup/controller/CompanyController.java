@@ -39,7 +39,16 @@ public class CompanyController {
         return ResponseBaseDto.succeed();
     }
 
-    //修改单位（编辑）
+
+    /**
+     * @Description //修改单位（编辑）
+     * @param baseOrgDto
+     * @return
+     * @Author Alex
+     * @Date 2019 4 9
+     */
+
+
     @PostMapping(Url.EDITCOMPANY)
     public ResponseBaseDto editCompany(@RequestBody BaseOrgDto baseOrgDto){
         baseOrgService.editCompany(baseOrgDto);

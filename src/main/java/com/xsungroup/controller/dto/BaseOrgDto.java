@@ -14,7 +14,7 @@ public class BaseOrgDto {
 
     private String orgCode;
 
-    private Integer type;
+    private Integer orgType;
 
     private Integer legalPerson;
 
@@ -30,7 +30,7 @@ public class BaseOrgDto {
 
     private String roadTransport;
 
-    private String audit_status;
+    private String auditStatus;
 
     private String dangerTransport;
 
@@ -48,5 +48,7 @@ public class BaseOrgDto {
 
     private Date modifyTime;
 
+    private int pageNum = 1;
 
+    private int pageSize = 10;
 }

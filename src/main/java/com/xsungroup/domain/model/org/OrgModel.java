@@ -12,7 +12,7 @@ public class OrgModel extends Model<OrgModel> {
 
     private String orgName;
 
-    private SourceEnum source;
+    private Integer source;
 
     private String orgCode;
 
@@ -24,21 +24,27 @@ public class OrgModel extends Model<OrgModel> {
 
     private Integer operation;
 
-    private OrgModel parentPk;
+    private String parentPk;
 
-    private DocumentBusiness businessCode;
+    private String businessCode;
 
-    private DocumentIdCard legalPersonIdCard;
+    private String legalPersonIdCard;
 
-    private DocumentRoadTransport roadTransport;
+    private String roadTransport;
 
-    private DocumentDangerTransport dangerTransport;
+    private String dangerTransport;
 
     private String warrant;
 
     private Integer auditStatus;
 
     private List<AuditOrg> audits;
+
+    private String contactNum;
+
+    private String orgEmail;
+
+    private String orgTax;
 
     @Override
     public boolean sameIdentityAs(OrgModel other) {

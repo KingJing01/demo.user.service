@@ -10,11 +10,8 @@
     <result column="legal_person" jdbcType="INTEGER" property="legalPerson" />
     <result column="accountant" jdbcType="INTEGER" property="accountant" />
     <result column="operation" jdbcType="INTEGER" property="operation" />
-    <result column="parent_pk" jdbcType="VARCHAR" property="parentPk" />
-    <result column="business_code" jdbcType="VARCHAR" property="businessCode" />
-    <result column="legal_person_id_card" jdbcType="VARCHAR" property="legalPersonIdCard" />
-    <result column="road_transport" jdbcType="VARCHAR" property="roadTransport" />
-    <result column="danger_transport" jdbcType="VARCHAR" property="dangerTransport" />
+
+
     <result column="warrant" jdbcType="VARCHAR" property="warrant" />
     <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
     <result column="dr" jdbcType="INTEGER" property="dr" />
@@ -23,6 +20,29 @@
     <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="ts" jdbcType="VARCHAR" property="ts" />
+    <result column="contact_num" jdbcType="VARCHAR" property="contactNum" />
+    <result column="org_email" jdbcType="VARCHAR" property="orgEmail" />
+    <result column="org_tax" jdbcType="VARCHAR" property="orgTax" />
+    <result column="parent_pk" jdbcType="VARCHAR" property="parentPk" />
+    <!--<association property="parentPk" column="parent_pk" select="selectByPrimaryKey"-->
+                 <!--javaType="com.xsungroup.domain.model.org.OrgModel"/>-->
+
+    <result column="business_code" jdbcType="VARCHAR" property="businessCode" />
+    <!--<association property="businessCode" column="business_code" select="selectByPrimaryKey"-->
+                 <!--javaType="com.xsungroup.domain.model.document.DocumentBusiness"/>-->
+
+    <result column="legal_person_id_card" jdbcType="VARCHAR" property="legalPersonIdCard" />
+    <!--<association property="legalPersonIdCard" column="legal_person_id_card" select="selectByPrimaryKey"-->
+                 <!--javaType="com.xsungroup.domain.model.document.DocumentIdCard"/>-->
+
+    <result column="road_transport" jdbcType="VARCHAR" property="roadTransport" />
+    <!--<association property="roadTransport" column="road_transport" select="selectByPrimaryKey"-->
+                 <!--javaType="com.xsungroup.domain.model.document.DocumentRoadTransport"/>-->
+
+    <result column="danger_transport" jdbcType="VARCHAR" property="dangerTransport" />
+    <!--<association property="dangerTransport" column="danger_transport" select="selectByPrimaryKey"-->
+                 <!--javaType="com.xsungroup.domain.model.document.DocumentDangerTransport"/>-->
+
   </resultMap>
   <sql id="Base_Column_List">
     pk, org_name, source, org_code, org_type, legal_person, accountant, operation, parent_pk, 
@@ -286,4 +306,33 @@
       ts = #{ts,jdbcType=VARCHAR}
     where pk = #{pk,jdbcType=VARCHAR}
   </update>
+
+  <!--查询列表-->
+  <select id="selectCompany" resultType="com.xsungroup.domain.model.org.OrgModel">
+    select
+    pk,audit_status,org_name,accountant,org_type,source,org_code,road_transport,danger_transport
+    from t_base_org
+    where dr = 0
+    <if test="param.orgName != null and param.orgName != '' ">
+      and org_name like CONCAT('%', #{param.orgName},'%')
+    </if>
+    <if test="param.source != null and param.source != '' ">
+      and source = #{param.source}
+    </if>
+    <if test="param.orgType != null and param.orgType != '' ">
+      and org_type = #{param.orgType}
+    </if>
+    <choose>
+      <when test="param.auditStatus != null and param.auditStatus != '' ">
+        and audit_status = #{param.auditStatus}
+      </when>
+      <otherwise>
+        and audit_status in (0,1)
+      </otherwise>
+    </choose>
+    ORDER BY create_time desc
+  </select>
+
+
+
 </mapper>
