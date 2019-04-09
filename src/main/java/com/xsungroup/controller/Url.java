@@ -18,4 +18,14 @@ public interface Url {
     String USER_MANAGER_DELETEUSER = "deleteUserInfo/{pks}";
     String USER_MANAGER_PASSWORD_RESET = "passwordReset";
 
+    String ADDCOMPANY = "addcompany";
+
+    String DELECOMPANY = "delecompany";
+
+    String EDITCOMPANY = "editcompany";
+
+    String SELECTCOMPANY = "selectcompany";
+
+    String DETAILCOMPANY = "detailcompany";
+
 }
