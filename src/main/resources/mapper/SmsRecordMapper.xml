@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsungroup.repository.mapper.SmsRecordMapper">
+  <resultMap id="BaseResultMap" type="com.xsungroup.domain.model.basis.SmsRecordModel">
+    <id column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="send_flag" jdbcType="INTEGER" property="sendFlag" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="send_result" jdbcType="VARCHAR" property="sendResult" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="ts" jdbcType="VARCHAR" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk, type, phone_num, name, param, memo, send_flag, send_time, send_result, dr, create_user, 
+    create_time, modify_user, modify_time, ts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sms_record
+    where pk = #{pk,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sms_record
+    where pk = #{pk,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xsungroup.domain.model.basis.SmsRecordModel">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
+    insert into t_sms_record (pk, type, phone_num, 
+      name, param, memo, 
+      send_flag, send_time, send_result, 
+      dr, create_user, create_time, 
+      modify_user, modify_time, ts
+      )
+    values (#{pk,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{sendFlag,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}, #{sendResult,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsungroup.domain.model.basis.SmsRecordModel">
+    <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+      select replace(uuid(), '-', '') pk
+    </selectKey>
+    insert into t_sms_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="sendFlag != null">
+        send_flag,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+      <if test="sendResult != null">
+        send_result,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendFlag != null">
+        #{sendFlag,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendResult != null">
+        #{sendResult,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.domain.model.basis.SmsRecordModel">
+    update t_sms_record
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null">
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendFlag != null">
+        send_flag = #{sendFlag,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendResult != null">
+        send_result = #{sendResult,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsungroup.domain.model.basis.SmsRecordModel">
+    update t_sms_record
+    set type = #{type,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      send_flag = #{sendFlag,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      send_result = #{sendResult,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=VARCHAR}
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+</mapper>
