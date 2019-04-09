@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsungroup.repository.mapper.BaseOrgEntityMapper">
+  <resultMap id="BaseResultMap" type="com.xsungroup.repository.entity.BaseOrgEntity">
+    <id column="pk" jdbcType="VARCHAR" property="pk" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="org_type" jdbcType="INTEGER" property="orgType" />
+    <result column="legal_person" jdbcType="INTEGER" property="legalPerson" />
+    <result column="accountant" jdbcType="INTEGER" property="accountant" />
+    <result column="operation" jdbcType="INTEGER" property="operation" />
+    <result column="parent_pk" jdbcType="VARCHAR" property="parentPk" />
+    <result column="business_code" jdbcType="VARCHAR" property="businessCode" />
+    <result column="legal_person_id_card" jdbcType="VARCHAR" property="legalPersonIdCard" />
+    <result column="road_transport" jdbcType="VARCHAR" property="roadTransport" />
+    <result column="danger_transport" jdbcType="VARCHAR" property="dangerTransport" />
+    <result column="warrant" jdbcType="VARCHAR" property="warrant" />
+    <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="ts" jdbcType="VARCHAR" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pk, org_name, source, org_code, org_type, legal_person, accountant, operation, parent_pk, 
+    business_code, legal_person_id_card, road_transport, danger_transport, warrant, audit_status, 
+    dr, create_user, create_time, modify_user, modify_time, ts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_org
+    where pk = #{pk,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_base_org
+    where pk = #{pk,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+    insert into t_base_org (pk, org_name, source, 
+      org_code, org_type, legal_person, 
+      accountant, operation, parent_pk, 
+      business_code, legal_person_id_card, road_transport, 
+      danger_transport, warrant, audit_status, 
+      dr, create_user, create_time, 
+      modify_user, modify_time, ts
+      )
+    values (#{pk,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, 
+      #{orgCode,jdbcType=VARCHAR}, #{orgType,jdbcType=INTEGER}, #{legalPerson,jdbcType=INTEGER}, 
+      #{accountant,jdbcType=INTEGER}, #{operation,jdbcType=INTEGER}, #{parentPk,jdbcType=VARCHAR}, 
+      #{businessCode,jdbcType=VARCHAR}, #{legalPersonIdCard,jdbcType=VARCHAR}, #{roadTransport,jdbcType=VARCHAR}, 
+      #{dangerTransport,jdbcType=VARCHAR}, #{warrant,jdbcType=VARCHAR}, #{auditStatus,jdbcType=INTEGER}, 
+      #{dr,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+    insert into t_base_org
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        pk,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="orgType != null">
+        org_type,
+      </if>
+      <if test="legalPerson != null">
+        legal_person,
+      </if>
+      <if test="accountant != null">
+        accountant,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="parentPk != null">
+        parent_pk,
+      </if>
+      <if test="businessCode != null">
+        business_code,
+      </if>
+      <if test="legalPersonIdCard != null">
+        legal_person_id_card,
+      </if>
+      <if test="roadTransport != null">
+        road_transport,
+      </if>
+      <if test="dangerTransport != null">
+        danger_transport,
+      </if>
+      <if test="warrant != null">
+        warrant,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pk != null">
+        #{pk,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        #{orgType,jdbcType=INTEGER},
+      </if>
+      <if test="legalPerson != null">
+        #{legalPerson,jdbcType=INTEGER},
+      </if>
+      <if test="accountant != null">
+        #{accountant,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="parentPk != null">
+        #{parentPk,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCode != null">
+        #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonIdCard != null">
+        #{legalPersonIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="roadTransport != null">
+        #{roadTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerTransport != null">
+        #{dangerTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="warrant != null">
+        #{warrant,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+    update t_base_org
+    <set>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        org_type = #{orgType,jdbcType=INTEGER},
+      </if>
+      <if test="legalPerson != null">
+        legal_person = #{legalPerson,jdbcType=INTEGER},
+      </if>
+      <if test="accountant != null">
+        accountant = #{accountant,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="parentPk != null">
+        parent_pk = #{parentPk,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCode != null">
+        business_code = #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonIdCard != null">
+        legal_person_id_card = #{legalPersonIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="roadTransport != null">
+        road_transport = #{roadTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerTransport != null">
+        danger_transport = #{dangerTransport,jdbcType=VARCHAR},
+      </if>
+      <if test="warrant != null">
+        warrant = #{warrant,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsungroup.repository.entity.BaseOrgEntity">
+    update t_base_org
+    set org_name = #{orgName,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_type = #{orgType,jdbcType=INTEGER},
+      legal_person = #{legalPerson,jdbcType=INTEGER},
+      accountant = #{accountant,jdbcType=INTEGER},
+      operation = #{operation,jdbcType=INTEGER},
+      parent_pk = #{parentPk,jdbcType=VARCHAR},
+      business_code = #{businessCode,jdbcType=VARCHAR},
+      legal_person_id_card = #{legalPersonIdCard,jdbcType=VARCHAR},
+      road_transport = #{roadTransport,jdbcType=VARCHAR},
+      danger_transport = #{dangerTransport,jdbcType=VARCHAR},
+      warrant = #{warrant,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=INTEGER},
+      dr = #{dr,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=VARCHAR}
+    where pk = #{pk,jdbcType=VARCHAR}
+  </update>
+</mapper>
