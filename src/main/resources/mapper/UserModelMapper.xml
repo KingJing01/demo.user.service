@@ -9,14 +9,6 @@
     <result column="pk_org" jdbcType="VARCHAR" property="pkOrg" />
     <result column="pk_top_org" jdbcType="VARCHAR" property="pkTopOrg" />
     <result column="pk_create_org" jdbcType="VARCHAR" property="pkCreateOrg" />-->
-    <!--<association property="role" column="pk_role" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Role"/>
-    <association property="org" column="pk_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
-    <association property="topOrg" column="pk_top_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>
-    <association property="createOrg" column="pk_create_org" select="selectByPrimaryKey"
-                 javaType="com.xsungroup.domain.model.user.Organization"/>-->
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="is_valid" jdbcType="INTEGER" property="isValid" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -28,6 +20,14 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <association property="role" column="pk_role" select="selectByPrimaryKey"
+                 javaType="com.xsungroup.domain.model.user.Role"/>
+    <association property="org" column="pk_org" select="selectByPrimaryKey"
+                 javaType="com.xsungroup.domain.model.user.Organization"/>
+    <association property="topOrg" column="pk_top_org" select="selectByPrimaryKey"
+                 javaType="com.xsungroup.domain.model.user.Organization"/>
+    <association property="createOrg" column="pk_create_org" select="selectByPrimaryKey"
+                 javaType="com.xsungroup.domain.model.user.Organization"/>
   </resultMap>
   <sql id="Base_Column_List">
     pk, user_name, display_name, pk_role, pk_org, pk_top_org, pk_create_org, last_login_time, 
@@ -67,6 +67,9 @@
 
   </delete>
   <insert id="insert" parameterType="com.xsungroup.domain.model.user.UserModel">
+      <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+          select replace(uuid(), '-', '') pk
+      </selectKey>
     insert into t_base_user (pk, user_name, display_name, 
       pk_role, pk_org, pk_top_org, 
       pk_create_org, last_login_time, is_valid, 
@@ -83,6 +86,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.xsungroup.domain.model.user.UserModel">
+      <selectKey keyProperty="pk" resultType="string" order="BEFORE">
+          select replace(uuid(), '-', '') pk
+      </selectKey>
     insert into t_base_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pk != null">

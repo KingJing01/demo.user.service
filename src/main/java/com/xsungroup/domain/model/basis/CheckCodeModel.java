@@ -32,14 +32,15 @@ public class CheckCodeModel extends Model<CheckCodeModel> {
         Date date = new Date();
         this.phoneNum = phoneNum;
         this.type = type;
-        this.code = getCode();
-        this.deadline = DateUtils.addMinute(date, PropertiesUtils.getDeadlineNum());
+        this.code = getCode(PropertiesUtils.getIntProperty(PropertiesUtils.CHECKCODE_DIGITS,4));
+        this.deadline = DateUtils.addMinute(date, PropertiesUtils.getIntProperty(
+                PropertiesUtils.CHECKCODE_DEADLINE,3));
         ModelUtils.newModel(this,"",date);
     }
 
-    public String getCode(){
+    public String getCode(int digits){
         StringBuffer code = new StringBuffer();
-        for (int i = 0; i < PropertiesUtils.getDeadlineNum(); i++) {
+        for (int i = 0; i < digits; i++) {
             code.append(RandomUtils.getRandom(1,9));
         }
         return code.toString();

@@ -2,19 +2,22 @@ package com.xsungroup.utils;
 
 import com.xinya.tools.utils.DateUtils;
 import com.xsungroup.domain.model.base.Model;
+import org.apache.logging.log4j.core.util.UuidUtil;
+import org.springframework.integration.util.UUIDConverter;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class ModelUtils {
 
+    //mysql uuid()生成
+    @Deprecated
     public static String getPk() {
        return UUID.randomUUID().toString().replace("-","");
     }
 
-
     public static void newModel(Model baseModel, String userId, Date date){
-        baseModel.setPk(UUID.randomUUID().toString());
+        //baseModel.setPk(getPk());
         baseModel.setModifyUser(userId);
         baseModel.setModifyTime(date);
         baseModel.setCreateUser(userId);

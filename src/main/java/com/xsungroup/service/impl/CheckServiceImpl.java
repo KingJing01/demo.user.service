@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.xsungroup.domain.event.SendSmsEvent;
 import com.xsungroup.domain.model.basis.CheckCodeModel;
 import com.xsungroup.domain.model.basis.SmsRecordModel;
+import com.xsungroup.repository.mapper.CheckCodeMapper;
 import com.xsungroup.service.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,12 @@ import java.util.Map;
 public class CheckServiceImpl implements CheckService {
 
 
-
     //@Resource(name = UserChannel.USER_OUTPUT)
     //private MessageChannel sendUserMessageChannel;
     @Autowired
     private SendSmsEvent sendSmsEvent;
+    @Autowired
+    private CheckCodeMapper checkCodeMapper;
     @Override
     public void sendCheck(CheckCodeModel model) {
         //model = checkCodeRepository.save(model);
@@ -33,6 +35,7 @@ public class CheckServiceImpl implements CheckService {
         SmsRecordModel sms = new SmsRecordModel("SMS_139238346",model.getPhoneNum(),JSON.toJSONString(param));
         //boolean bool = sendUserMessageChannel.send(MessageBuilder.withPayload(sms).build());
         //不成功自动触发
-        //sendSmsEvent.sendSms(sms);
+        checkCodeMapper.insertSelective(model);
+        sendSmsEvent.sendSms(sms);
     }
 }

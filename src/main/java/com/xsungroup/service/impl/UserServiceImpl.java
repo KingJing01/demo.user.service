@@ -25,15 +25,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
   @Autowired
   private UserMapper userMapper;
 
 
   @Override
   public Page<UserInfoListVo> findUserList(UserInfoListDto userInfoListDto) {
-    return userMapper.findUserList(new Pageable(userInfoListDto.getPageNum()-1,
-        userInfoListDto.getPageSize()),userInfoListDto);
+    return userMapper.findUserList(new Pageable(userInfoListDto.getPageNum() - 1,
+            userInfoListDto.getPageSize()), userInfoListDto);
   }
 
   @Override
@@ -57,10 +56,10 @@ public class UserServiceImpl implements UserService {
 //    user.setTransportMode(TransModeEnum.valueOf());
 
     if (StringUtils.isBlank(userInfoDto.getPk())) {
-      ModelUtils.newModel(user,"admin",new Date());
+      ModelUtils.newModel(user, "admin", new Date());
       userMapper.insertSelective(user);
     } else {
-      ModelUtils.modifyModel(user,"admin",new Date());
+      ModelUtils.modifyModel(user, "admin", new Date());
       user.setPk(userInfoDto.getPk());
       userMapper.updateByPrimaryKeySelective(user);
     }

@@ -3,6 +3,7 @@ package com.xsungroup.domain.event;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.xsungroup.domain.model.basis.SmsRecordModel;
+import com.xsungroup.repository.mapper.SmsRecordMapper;
 import com.xsungroup.utils.AliSms;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,16 @@ import java.util.Optional;
 @Component
 public class SendSmsEvent {
 
-    //@Autowired
-    //private SmsRecordRepository smsRecordRepository;
+    @Autowired
+    private SmsRecordMapper smsRecordMapper;
 
-
-    //@StreamListener(UserChannel.USER_INPUT)
     public void sendSmsReceive(Message<SmsRecordModel> message) {
         log.info("收到消息：" + message.getPayload());
         SmsRecordModel smsRecordModel = message.getPayload();
-        /*sendSms(smsRecordModel);*/
+        sendSms(smsRecordModel);
     }
 
-    /*public void sendSms(SmsRecordModel smsRecordModel) {
+    public void sendSms(SmsRecordModel smsRecordModel) {
         smsRecordModel.setSendTime(new Date());
         AliSms.setTemplateCode(smsRecordModel.getType());
         try {
@@ -54,7 +53,7 @@ public class SendSmsEvent {
             e.printStackTrace();
         }
         //持久化
-        smsRecordRepository.save(smsRecordModel);
-    }*/
+        smsRecordMapper.insertSelective(smsRecordModel);
+    }
 
 }
